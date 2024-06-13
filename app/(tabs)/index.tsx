@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {StyleSheet, View, Text, ScrollView, SafeAreaView, ImageBackground, Image, TouchableOpacity, Linking, Alert } from 'react-native';
+import {StyleSheet, View, Text, ScrollView, SafeAreaView, ImageBackground, Image, TouchableOpacity, Linking, Alert, StatusBar } from 'react-native';
 import {
   useFonts,
   Poppins_400Regular,
@@ -9,14 +9,64 @@ import {
 
 const banner = require('../../assets/images/BannerIndio.png');
 
-const openInstagram = async () => {
-  const instagramProfileUrl = 'https://www.instagram.com/dael.lins/';
-  const supported = await Linking.canOpenURL(instagramProfileUrl);
-
+const openGitHub = async () => {
+  const githubUrl = "https://github.com/Indio01"; // Substitua com o URL do seu repositório
+  const supported = await Linking.canOpenURL(githubUrl);
   if (supported) {
-    await Linking.openURL(instagramProfileUrl);
+    await Linking.openURL(githubUrl);
   } else {
-    Alert.alert('Não foi possível abrir o link', 'Por favor, verifique se você tem um navegador instalado.');
+    console.error(`Não é possível abrir o URL: ${githubUrl}`);
+  }
+};
+
+const openLinkedin = async () => {
+  const profileId = "daniel-lins-264332310";
+  try {
+    const linkedInUrl = `linkedin://profile/${profileId}`;
+    const isInstalled = await Linking.canOpenURL(linkedInUrl);
+
+    if (isInstalled) {
+      await Linking.openURL(linkedInUrl);
+    } else {
+      const webUrl = `https://www.linkedin.com/in/${profileId}`;
+      await Linking.openURL(webUrl);
+    }
+  } catch (error) {
+    console.error("Erro ao abrir o perfil do LinkedIn:", error);
+  }
+};
+
+const openWhatsapp = async () => {
+  const phoneNumber = "5518998113880";
+  const message = "";
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+    message
+  )}`;
+
+  const supported = await Linking.canOpenURL(whatsappUrl);
+  if (supported) {
+    await Linking.openURL(whatsappUrl);
+  } else {
+    console.error(`Não é possível abrir o URL do WhatsApp: ${whatsappUrl}`);
+  }
+};
+
+const openInstagram = async () => {
+  const instagramUrl = "https://www.instagram.com/dael.lins/";
+  try {
+    await Linking.openURL(instagramUrl);
+  } catch (error) {
+    console.error("Erro ao abrir o link do Instagram:", error);
+  }
+};
+
+const openTelefone = async () => {
+  const numero = "18998113880"; // Substitua pelo número desejado
+  const url = `tel:${numero}`;
+  try {
+    await Linking.openURL(url);
+  } catch (error) {
+    console.error("Erro ao abrir o cliente de telefone:", error);
   }
 };
 
@@ -31,10 +81,11 @@ export default function HomeScreen() {
     return;
   } else {
     return (
-      <SafeAreaView>
-        <ScrollView>
-          <View style={styles.container}>
-            <ImageBackground source={banner} resizeMode="cover" style={styles.banner}></ImageBackground>
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="dark-content"/>
+        <View style={{backgroundColor: '#F5F0EA',}}>
+            <ImageBackground source={banner} resizeMode="cover" style={styles.banner} />
+
             <View style={styles.content}>
               <View style={styles.containerFlutuante}>
                 <Image source={require('../../assets/images/papacapim.jpg')} style={styles.imagem}/>
@@ -44,16 +95,41 @@ export default function HomeScreen() {
                 <View style={styles.hairline} />
                 <Text style={styles.texto}>Confira meu trabalho de Desenvolvimento de um app Web</Text>
 
-                <View>
-                  <TouchableOpacity onPress={openInstagram}>
-                    <Text>Abrir Instagram</Text>
+              <View style={{marginTop:15}}>
+                <View style={styles.botao}>
+                  <TouchableOpacity onPress={openLinkedin}>
+                    <Text style={styles.textoBotao}>LINKEDIN</Text>
+                  </TouchableOpacity>
+                </View>
+                
+                <View style={styles.botao}>
+                  <TouchableOpacity onPress={openGitHub}>
+                    <Text style={styles.textoBotao}>GITHUB</Text>
                   </TouchableOpacity>
                 </View>
 
+                <View style={styles.botao}>
+                  <TouchableOpacity onPress={openWhatsapp}>
+                    <Text style={styles.textoBotao}>WHATSAPP</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <View style={styles.botao}>
+                  <TouchableOpacity onPress={openInstagram}>
+                    <Text style={styles.textoBotao}>INSTAGRAM</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <View style={styles.botao}>
+                  <TouchableOpacity onPress={openTelefone}>
+                    <Text style={styles.textoBotao}>TELEFONE</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+
               </View>
             </View>
-          </View>
-        </ScrollView>
+        </View>
       </SafeAreaView>
     );
   }
@@ -63,7 +139,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F0EA',
+    backgroundColor: '#7888C4',
   },
   content: {
     padding: 5,
@@ -77,8 +153,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    top: -50,
-    height: 400,
+    top: 125,
+    height: 490,
     width: '85%'
   },
   imagem:{
@@ -92,24 +168,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     width: '100%',
-    height: 200,
+    height: 190,
   },
   titulo: {
     color: '#000',
     fontFamily: 'Poppins_600SemiBold',
     fontSize: 30,
-    lineHeight: 35,
     textAlign: 'center',
   },
   subtitulo: {
     color: '#000',
     fontFamily: 'Poppins_400Regular',
     fontSize: 15,
-    lineHeight: 20,
+    paddingTop: 0,
     textAlign: 'center',
   },
   hairline: {
-    margin: 20,
+    margin: 15,
     backgroundColor: '#000',
     height: 2,
     width: 50,
@@ -118,7 +193,19 @@ const styles = StyleSheet.create({
     color: '#000',
     fontFamily: 'Poppins_400Regular',
     fontSize: 13,
-    lineHeight: 18,
     textAlign: 'center',
+  },
+  botao:{
+    marginTop: 5,
+    backgroundColor: '#292929',
+    width: 250,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    },
+    textoBotao:{
+      color: '#fff',
+      lineHeight: 47,
+      fontFamily: 'Poppins_600SemiBold',
   }
 });
