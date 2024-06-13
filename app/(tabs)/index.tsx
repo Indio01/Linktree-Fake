@@ -52,7 +52,7 @@ const openWhatsapp = async () => {
 };
 
 const openInstagram = async () => {
-  const instagramUrl = "https://www.instagram.com/dael.lins/";
+  const instagramUrl = "instagram://user?username=dael.lins";
   try {
     await Linking.openURL(instagramUrl);
   } catch (error) {
