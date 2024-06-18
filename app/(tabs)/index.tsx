@@ -1,80 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import {StyleSheet, View, Text, ScrollView, SafeAreaView, ImageBackground, Image, TouchableOpacity, Linking, StatusBar } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { StyleSheet, Image, Platform } from "react-native";
+import ParallaxScrollView from "@/components/ParallaxScrollView";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+
 import {
   useFonts,
   Poppins_400Regular,
   Poppins_400Regular_Italic,
   Poppins_600SemiBold,
-} from '@expo-google-fonts/poppins';
-
-const banner = require('../../assets/images/BannerIndio.png');
-
-const openGitHub = async () => {
-  const githubUrl = "https://github.com/Indio01"; // Substitua com o URL do seu repositório
-  const supported = await Linking.canOpenURL(githubUrl);
-  if (supported) {
-    await Linking.openURL(githubUrl);
-  } else {
-    console.error(`Não é possível abrir o URL: ${githubUrl}`);
-  }
-};
-
-const openLinkedin = async () => {
-  const profileId = "daniel-lins-264332310";
-  try {
-    const linkedInUrl = `linkedin://profile/${profileId}`;
-    const isInstalled = await Linking.canOpenURL(linkedInUrl);
-
-    if (isInstalled) {
-      await Linking.openURL(linkedInUrl);
-    } else {
-      const webUrl = `https://www.linkedin.com/in/${profileId}`;
-      await Linking.openURL(webUrl);
-    }
-  } catch (error) {
-    console.error("Erro ao abrir o perfil do LinkedIn:", error);
-  }
-};
-
-const openWhatsapp = async () => {
-  const phoneNumber = "5518998113880";
-  const message = "";
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-    message
-  )}`;
-
-  const supported = await Linking.canOpenURL(whatsappUrl);
-  if (supported) {
-    await Linking.openURL(whatsappUrl);
-  } else {
-    console.error(`Não é possível abrir o URL do WhatsApp: ${whatsappUrl}`);
-  }
-};
-
-const openInstagram = async () => {
-  const instagramUrl = "instagram://user?username=dael.lins";
-  try {
-    await Linking.openURL(instagramUrl);
-  } catch (error) {
-    console.error("Erro ao abrir o link do Instagram:", error);
-  }
-};
-
-const openTelefone = async () => {
-  const numero = "18998113880"; // Substitua pelo número desejado
-  const url = `tel:${numero}`;
-  try {
-    await Linking.openURL(url);
-  } catch (error) {
-    console.error("Erro ao abrir o cliente de telefone:", error);
-  }
-};
+} from "@expo-google-fonts/poppins";
+import { View } from "react-native-reanimated/lib/typescript/Animated";
 
 export default function HomeScreen() {
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
-    Poppins_400Regular_Italic, 
+    Poppins_400Regular_Italic,
     Poppins_600SemiBold,
   });
 
@@ -82,175 +23,61 @@ export default function HomeScreen() {
     return;
   } else {
     return (
-      <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content"/>
-        <View style={{backgroundColor: '#F5F0EA',}}>
-            <ImageBackground source={banner} resizeMode="cover" style={styles.banner} />
+      <ParallaxScrollView
+        headerBackgroundColor={{ light: "#F5F0EA", dark: "#F5F0EA" }}
+        headerImage={
+          <Image
+            source={require("../../assets/images/BannerIndio.png")}
+            resizeMode="cover"
+            style={{ width: 400, height: 250 }}
+          />
+        }
+      >
+      <View style={{backgroundColor:'#F5F0EA'}}>
+        <ThemedView style={styles.titleContainer}>
+          <ThemedText
+            type="title"
+            style={{
+              fontFamily: "Poppins_600SemiBold",
+              lineHeight: 40,
+              textAlign: "center",
+            }}
+          >
+            SEJA BEM VINDO !! 🔒🙅‍♂️
+          </ThemedText>
+        </ThemedView>
+        <ThemedText style={styles.texto}>
+          Para o trabalho escolar de DDMII,
+          foi desenvolvida uma plataforma inspirada no conceito do
+          LinkTree, focada em otimizar a presença digital através de uma
+          interface simplificada e intuitiva.
+        </ThemedText>
 
-            <View style={styles.content}>
-              <View style={styles.containerFlutuante}>
-                <Image source={require('../../assets/images/papacapim.jpg')} style={styles.imagem}/>
-
-                <Text style={styles.titulo}>Daniel Lins</Text>
-                <Text style={styles.subtitulo}>Estudante</Text>
-                <View style={styles.linhaFlutuante} />
-                <Text style={styles.texto}>Confira meu trabalho de{} Desenvolvimento de um app Web</Text>
-
-                <View style={{marginTop:15}}>
-                  <View style={styles.botao}>
-                    <TouchableOpacity onPress={openLinkedin}>
-                    <View style={styles.logoTitle}>
-                        <View style={{width: 25}}>
-                          <Ionicons name="logo-linkedin" size={20} color="white" />
-                        </View>
-                        <View style={styles.ViewText}>
-                          <Text style={styles.textoBotao}>LINKEDIN</Text>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                  
-                  <View style={styles.botao}>
-                    <TouchableOpacity onPress={openGitHub}>
-                    <View style={styles.logoTitle}>
-                        <View style={{width: 25}}>
-                          <Ionicons name="logo-github" size={20} color="white" />
-                        </View>
-                        <View style={styles.ViewText}>
-                          <Text style={styles.textoBotao}>GITHUB</Text>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-
-                  <View style={styles.botao}>
-                    <TouchableOpacity onPress={openWhatsapp}>
-                    <View style={styles.logoTitle}>
-                        <View style={{width: 25}}>
-                          <Ionicons name="logo-whatsapp" size={20} color="white" />
-                        </View>
-                        <View style={styles.ViewText}>
-                          <Text style={styles.textoBotao}>WHATSAPP</Text>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-
-                  <View style={styles.botao}>
-                    <TouchableOpacity onPress={openInstagram}>
-                      <View style={styles.logoTitle}>
-                        <View style={{width: 25}}>
-                          <Ionicons name="logo-instagram" size={20} color="white" />
-                        </View>
-                        <View style={styles.ViewText}>
-                          <Text style={styles.textoBotao}>INSTAGRAM</Text>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-
-                  <View style={styles.botao}>
-                    <TouchableOpacity onPress={openTelefone}>
-                    <View style={styles.logoTitle}>
-                        <View style={{width: 25}}>
-                          <Ionicons name="call" size={20} color="white" />
-                        </View>
-                        <View style={styles.ViewText}>
-                          <Text style={styles.textoBotao}>TELEFONE</Text>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </View>
-        </View>
-      </SafeAreaView>
+        <ThemedText style={styles.texto}>
+          confira na pagina ao lado
+        </ThemedText>
+      </View>  
+      </ParallaxScrollView>
     );
   }
-  };
-
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#7888C4',
+  headerImage: {
+    color: "#808080",
+    bottom: -90,
+    left: -35,
+    position: "absolute",
   },
-  content: {
-    padding: 5,
-    height: 1000,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  containerFlutuante: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    top: 125,
-    height: 490,
-    width: '85%'
-  },
-  imagem:{
-    width: 100,
-    height: 100,
-    borderRadius: 100,
-    position: 'absolute',
-    top: -50
-  },
-  banner: {
-    flex: 1,
-    justifyContent: 'center',
-    width: '100%',
-    height: 190,
-  },
-  titulo: {
-    color: '#000',
-    fontFamily: 'Poppins_600SemiBold',
-    fontSize: 30,
-    textAlign: 'center',
-  },
-  subtitulo: {
-    color: '#000',
-    fontFamily: 'Poppins_400Regular',
-    fontSize: 15,
-    paddingTop: 0,
-    textAlign: 'center',
-  },
-  linhaFlutuante: {
-    margin: 15,
-    backgroundColor: '#000',
-    height: 2,
-    width: 50,
+  titleContainer: {
+    flexDirection: "row",
+    gap: 8,
+    justifyContent: "center",
+    alignItems: "center",
   },
   texto:{
-    color: '#000',
-    fontFamily: 'Poppins_400Regular',
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  botao:{
-    marginTop: 5,
-    backgroundColor: '#292929',
-    width: 250,
-    borderRadius: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 45,
-  },
-  textoBotao:{
-    color: '#fff',
-    fontFamily: 'Poppins_600SemiBold',
-  },
-  logoTitle:{
-    display: 'flex',
-    flexDirection: 'row',
-    gap: 15,
-  },
-  ViewText:{
-    width: 100, 
-    justifyContent: 'center', 
-    alignItems: 'center'
+    fontFamily: "Poppins_400Regular",
+    lineHeight: 20,
+    textAlign: "justify",
   },
 });
