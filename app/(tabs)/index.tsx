@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import {StyleSheet, View, Text, ScrollView, SafeAreaView, ImageBackground, Image, TouchableOpacity, Linking, Alert, StatusBar } from 'react-native';
+import {StyleSheet, View, Text, ScrollView, SafeAreaView, ImageBackground, Image, TouchableOpacity, Linking, StatusBar } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import {
   useFonts,
   Poppins_400Regular,
@@ -92,41 +93,75 @@ export default function HomeScreen() {
 
                 <Text style={styles.titulo}>Daniel Lins</Text>
                 <Text style={styles.subtitulo}>Estudante</Text>
-                <View style={styles.hairline} />
-                <Text style={styles.texto}>Confira meu trabalho de Desenvolvimento de um app Web</Text>
+                <View style={styles.linhaFlutuante} />
+                <Text style={styles.texto}>Confira meu trabalho de{} Desenvolvimento de um app Web</Text>
 
-              <View style={{marginTop:15}}>
-                <View style={styles.botao}>
-                  <TouchableOpacity onPress={openLinkedin}>
-                    <Text style={styles.textoBotao}>LINKEDIN</Text>
-                  </TouchableOpacity>
-                </View>
-                
-                <View style={styles.botao}>
-                  <TouchableOpacity onPress={openGitHub}>
-                    <Text style={styles.textoBotao}>GITHUB</Text>
-                  </TouchableOpacity>
-                </View>
+                <View style={{marginTop:15}}>
+                  <View style={styles.botao}>
+                    <TouchableOpacity onPress={openLinkedin}>
+                    <View style={styles.logoTitle}>
+                        <View style={{width: 25}}>
+                          <Ionicons name="logo-linkedin" size={20} color="white" />
+                        </View>
+                        <View style={styles.ViewText}>
+                          <Text style={styles.textoBotao}>LINKEDIN</Text>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                  
+                  <View style={styles.botao}>
+                    <TouchableOpacity onPress={openGitHub}>
+                    <View style={styles.logoTitle}>
+                        <View style={{width: 25}}>
+                          <Ionicons name="logo-github" size={20} color="white" />
+                        </View>
+                        <View style={styles.ViewText}>
+                          <Text style={styles.textoBotao}>GITHUB</Text>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
 
-                <View style={styles.botao}>
-                  <TouchableOpacity onPress={openWhatsapp}>
-                    <Text style={styles.textoBotao}>WHATSAPP</Text>
-                  </TouchableOpacity>
-                </View>
+                  <View style={styles.botao}>
+                    <TouchableOpacity onPress={openWhatsapp}>
+                    <View style={styles.logoTitle}>
+                        <View style={{width: 25}}>
+                          <Ionicons name="logo-whatsapp" size={20} color="white" />
+                        </View>
+                        <View style={styles.ViewText}>
+                          <Text style={styles.textoBotao}>WHATSAPP</Text>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
 
-                <View style={styles.botao}>
-                  <TouchableOpacity onPress={openInstagram}>
-                    <Text style={styles.textoBotao}>INSTAGRAM</Text>
-                  </TouchableOpacity>
-                </View>
+                  <View style={styles.botao}>
+                    <TouchableOpacity onPress={openInstagram}>
+                      <View style={styles.logoTitle}>
+                        <View style={{width: 25}}>
+                          <Ionicons name="logo-instagram" size={20} color="white" />
+                        </View>
+                        <View style={styles.ViewText}>
+                          <Text style={styles.textoBotao}>INSTAGRAM</Text>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
 
-                <View style={styles.botao}>
-                  <TouchableOpacity onPress={openTelefone}>
-                    <Text style={styles.textoBotao}>TELEFONE</Text>
-                  </TouchableOpacity>
+                  <View style={styles.botao}>
+                    <TouchableOpacity onPress={openTelefone}>
+                    <View style={styles.logoTitle}>
+                        <View style={{width: 25}}>
+                          <Ionicons name="call" size={20} color="white" />
+                        </View>
+                        <View style={styles.ViewText}>
+                          <Text style={styles.textoBotao}>TELEFONE</Text>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-
               </View>
             </View>
         </View>
@@ -183,7 +218,7 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     textAlign: 'center',
   },
-  hairline: {
+  linhaFlutuante: {
     margin: 15,
     backgroundColor: '#000',
     height: 2,
@@ -192,7 +227,7 @@ const styles = StyleSheet.create({
   texto:{
     color: '#000',
     fontFamily: 'Poppins_400Regular',
-    fontSize: 13,
+    fontSize: 14,
     textAlign: 'center',
   },
   botao:{
@@ -202,10 +237,20 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
-    },
-    textoBotao:{
-      color: '#fff',
-      lineHeight: 47,
-      fontFamily: 'Poppins_600SemiBold',
-  }
+    height: 45,
+  },
+  textoBotao:{
+    color: '#fff',
+    fontFamily: 'Poppins_600SemiBold',
+  },
+  logoTitle:{
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 15,
+  },
+  ViewText:{
+    width: 100, 
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
 });
