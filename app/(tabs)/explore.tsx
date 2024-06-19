@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     top: 110,
-    height: 470,
+    height: 480,
     width: '85%'
   },
   imagem:{
