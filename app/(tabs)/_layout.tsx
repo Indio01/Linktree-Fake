@@ -35,7 +35,7 @@ export default function TabLayout() {
         options={{
           title: 'Linktree',
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon name={focused ? 'apps' : 'apps-outline'} color={'#292929'} />
+            <TabBarIcon name={focused ? 'create' : 'create-outline'} color={'#292929'} />
           ),
         }}
       />
